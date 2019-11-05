@@ -16,6 +16,63 @@
 <body>
     <!-- DO NOT MODIFY THIS HTML -->
     <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
-    <input type = "color" id = "picker"/>
+	<input type = "color" id = "picker"/>
+	<script>
+		var canvas = document.getElementById("myCanvas"); 
+		var ctx = canvas.getContext("2d");
+		ctx.canvas.width  = 0.8*window.innerWidth;
+  		ctx.canvas.height = 0.8*window.innerHeight;
+		var color = "black";
+		function change(e){
+			color = this.value;
+		}
+		document.getElementById("picker").onchange = change;
+		//ctx.fillRect(50,50,200,80);
+		function draw(posX, posY){
+			ctx.fillStyle = color;
+			ctx.beginPath()
+			ctx.arc(posX,posY,10,0,2*Math.PI);
+			ctx.fill();
+		}
+		//draw();
+		function getPosition(el) {
+			var xPosition = 0;
+			var yPosition = 0;
+			
+			while (el) {
+				xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+				yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+				el = el.offsetParent;
+			}
+			return {
+				x: xPosition,
+				y: yPosition
+			};
+		}       
+		var canvasPos = getPosition(canvas);
+		myCanvas.addEventListener(
+				'mousemove', function (e) {
+					draw(e.clientX - canvasPos.x,e.clientY - canvasPos.y);
+				}
+		)
+		
+		window.addEventListener(
+				'keydown', function (e) {
+					console.log(e)
+					if (event.code == 'KeyB') color = 'blue';
+					if (event.code == 'KeyG') color = 'green';
+					if (event.code == 'KeyR') color = 'red';
+					if (event.code == 'KeyY') color = 'yellow';
+					if (event.code == 'Space') ctx.clearRect(0, 0, canvas.width, canvas.height);;
+					if (event.code == 'ArrowUp') {
+
+					}
+					if (event.code == 'ArrowDown') {
+						
+					}
+				}
+		)
+		
+	</script>
 </body>
 </html>
