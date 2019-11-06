@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +14,7 @@
 </head>
 <body>
     <!-- DO NOT MODIFY THIS HTML -->
-    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+    <canvas id = "myCanvas" width = "350" height = "500"></canvas>
 	<input type = "color" id = "picker"/>
 	<script>
 		var canvas = document.getElementById("myCanvas"); 
@@ -50,10 +49,13 @@
 			};
 		}       
 		var canvasPos = getPosition(canvas);
+		var penDown = true;
 		myCanvas.addEventListener(
 				'mousemove', function (e) {
-					draw(e.clientX - canvasPos.x,e.clientY - canvasPos.y);
-				}
+					if (penDown == true) {
+						draw(e.clientX - canvasPos.x,e.clientY - canvasPos.y);
+					}
+			}
 		)
 		
 		window.addEventListener(
@@ -64,12 +66,8 @@
 					if (event.code == 'KeyR') color = 'red';
 					if (event.code == 'KeyY') color = 'yellow';
 					if (event.code == 'Space') ctx.clearRect(0, 0, canvas.width, canvas.height);;
-					if (event.code == 'ArrowUp') {
-
-					}
-					if (event.code == 'ArrowDown') {
-						
-					}
+					if (event.code == 'ArrowUp') penDown = false;
+					if (event.code == 'ArrowDown') penDown = true;
 				}
 		)
 		
